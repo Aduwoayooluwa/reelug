@@ -23,7 +23,8 @@ const Email = ({ emailData }: { emailData: EmailData }) => {
 
   const { subject, date, folders, starred, unread } = emailData;
 
-  const formattedDate = new Date(date * 1000).toLocaleString();
+  const formattedDate =
+    typeof date === "number" ? new Date(date * 1000).toLocaleString() : "N/A";
 
   return (
     <div className=" my-4">
@@ -31,7 +32,7 @@ const Email = ({ emailData }: { emailData: EmailData }) => {
         <h2 className="font-semibold text-xl">{subject}</h2>
 
         <p>Date: {formattedDate}</p>
-        <p>Folders: {folders.join(", ")}</p>
+        <p>Folders: {folders?.join(", ")}</p>
         <p>
           Status: {unread ? "Unread" : "Read"},{" "}
           {starred ? "Starred" : "Not Starred"}
@@ -85,7 +86,7 @@ const Dashboard: React.FC = () => {
 
   const {
     data: contactData,
-    isLoading: isLoadingContactData,
+    // isLoading: isLoadingContactData,
     // error: contactError,
   } = useFetchData(`https://api.us.nylas.com/v3/grants/${TEST_GRANT}/contacts`);
 
@@ -237,7 +238,7 @@ const Dashboard: React.FC = () => {
           </Button>
         </div>
         <ContactSummaryTable
-          isLoading={isLoadingContactData}
+          //   isLoading={isLoadingContactData}
           contacts={contactData?.data}
         />
       </div>
@@ -322,7 +323,7 @@ const Dashboard: React.FC = () => {
         <h2 className="text-2xl font-bold">Recent Mails</h2>
         {emailData?.data
           ?.slice(0, 4)
-          ?.map((email: unknown) => <Email emailData={email} />)}
+          ?.map((email: unknown) => <Email emailData={email as EmailData} />)}
       </div>
 
       {/* Navigation to Other Pages */}

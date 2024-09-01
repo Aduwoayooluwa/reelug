@@ -10,7 +10,6 @@ export type CalendarData = {
   hex_color?: string;
   is_owned_by_user?: boolean;
 };
-
 export type EmailData = {
   email_id?: string;
   subject?: string;
@@ -20,8 +19,9 @@ export type EmailData = {
   timestamp?: Date;
   read?: boolean;
   attachments?: string[];
-  date?: Date | undefined;
-  folders?: unknown[] | undefined;
-  starred?: unknown;
-  unread?: unknown;
+  date?: Date | undefined; 
+  folders?: string[] | undefined;
+  starred?: boolean;
+  unread?: boolean;
 };
+

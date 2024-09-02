@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
-import { Form, Button, Tag, message } from "antd";
+import { Form, Button, Tag } from "antd";
 import { useNavigate } from "react-router-dom";
 import { GoogleOutlined, WindowsOutlined } from "@ant-design/icons";
-import { useMutation } from "@tanstack/react-query";
-import { _axios } from "../../config/api.config";
 import { CALLBACK_URI, CLIENT_ID, N_BASE_URL } from "../../config/env.config";
 
 const LoginPage: React.FC = () => {

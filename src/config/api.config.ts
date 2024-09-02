@@ -1,8 +1,17 @@
 import axios from "axios";
-import { API_KEY, BASE_URL } from "./env.config";
+import { API_KEY, BASE_URL, N_BASE_URL } from "./env.config";
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+    Authorization: `Bearer ${API_KEY}`,
+  },
+});
+
+export const _axios = axios.create({
+  baseURL: N_BASE_URL,
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",

@@ -1,10 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
-import { Form, Input, Button, Checkbox, Tag } from "antd";
+import { Form, Button, Tag, message } from "antd";
 import { useNavigate } from "react-router-dom";
-// import "~antd/dist/antd.css";
+import { GoogleOutlined, WindowsOutlined } from "@ant-design/icons";
+import { useMutation } from "@tanstack/react-query";
+import { _axios } from "../../config/api.config";
+import { CALLBACK_URI, CLIENT_ID } from "../../config/env.config";
 
 const LoginPage: React.FC = () => {
+  const [form] = Form.useForm();
   const router = useNavigate();
+
   const onFinish = (values: unknown) => {
     console.log("Success:", values);
     router("/dashboard");
@@ -12,6 +18,36 @@ const LoginPage: React.FC = () => {
 
   const onFinishFailed = (errorInfo: unknown) => {
     console.log("Failed:", errorInfo);
+  };
+
+  const mutation = useMutation<unknown, unknown, string>({
+    mutationFn: (provider: string) =>
+      _axios.post(
+        `connect/auth?client_id=${CLIENT_ID}&redirect_uri=${CALLBACK_URI}&response_type=code&provider=${provider}`,
+        {
+          redirect_uri: CALLBACK_URI,
+        }
+      ),
+    mutationKey: ["emailKey"],
+    onSuccess: () => {
+      message.success("Login Successful!");
+
+      router("/dashboard");
+      form.resetFields();
+    },
+    onError: (error: any) => {
+      message.error(
+        `Failed to Login: ${error.response?.data?.message || error.message}`
+      );
+    },
+  });
+
+  const handleGoogleLogin = () => {
+    mutation.mutate("google");
+  };
+
+  const handleMicrosoftLogin = () => {
+    mutation.mutate("microsoft");
   };
 
   return (
@@ -30,8 +66,9 @@ const LoginPage: React.FC = () => {
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           className="space-y-4"
+          form={form}
         >
-          <Form.Item
+          {/* <Form.Item
             name="username"
             rules={[{ required: true, message: "Please input your Username!" }]}
           >
@@ -47,16 +84,50 @@ const LoginPage: React.FC = () => {
 
           <Form.Item name="remember" valuePropName="checked" className="mb-0">
             <Checkbox>Remember me</Checkbox>
-          </Form.Item>
+          </Form.Item> */}
 
-          <Tag className="w-full overflow-x-auto">
-            Just type in a username and password and login for now. Working on a
-            proper auth system
+          <Tag color="volcano" className="w-full text-center overflow-x-auto">
+            Choose Authentication Method
           </Tag>
 
-          <Form.Item className="text-center">
-            <Button type="primary" htmlType="submit" className="w-full">
+          <Form.Item className="text-center space-y-4">
+            {/* <Button
+              loading={mutation.isPending}
+              type="primary"
+              htmlType="submit"
+              className="w-full"
+            >
               Log in
+            </Button> */}
+
+            {/* Google Login Button */}
+            <Button
+              className="w-full mt-2 flex items-center justify-center"
+              style={{
+                backgroundColor: "#4285F4",
+                color: "#fff",
+                borderRadius: "4px",
+                border: "none",
+              }}
+              icon={<GoogleOutlined />}
+              onClick={handleGoogleLogin}
+            >
+              Sign in with Google
+            </Button>
+
+            {/* Microsoft Login Button */}
+            <Button
+              className="w-full mt-2 flex items-center justify-center"
+              style={{
+                backgroundColor: "#2F2F2F",
+                color: "#fff",
+                borderRadius: "4px",
+                border: "none",
+              }}
+              icon={<WindowsOutlined />}
+              onClick={handleMicrosoftLogin}
+            >
+              Sign in with Microsoft
             </Button>
           </Form.Item>
         </Form>

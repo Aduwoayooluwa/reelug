@@ -1,5 +1,5 @@
-import React from "react";
-import { Card, Button, List, Statistic, Row, Col } from "antd";
+import React, { useEffect } from "react";
+import { Card, Button, List, Statistic, Row, Col, Spin } from "antd";
 import {
   //   PlusOutlined,
   FileTextOutlined,
@@ -9,9 +9,16 @@ import {
   UserAddOutlined,
   VideoCameraAddOutlined,
 } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
+
+import { useNavigate, useSearchParams } from "react-router-dom";
 import useFetchData from "../../hooks/use-fetch";
-import { TEST_GRANT } from "../../config/env.config";
+import { useGetToken } from "../../hooks/use-get-token";
+import {
+  TEST_GRANT,
+  CALLBACK_URI,
+  API_KEY,
+  CLIENT_ID,
+} from "../../config/env.config";
 import { CalendarData, EmailData } from "../../types/app.types";
 import { EventData } from "../../types/events.types";
 import ContactSummaryTable from "./contact-table";
@@ -60,6 +67,24 @@ const Email = ({ emailData }: { emailData: EmailData }) => {
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
 
+  const [searchParams] = useSearchParams();
+
+  const userCode = searchParams.get("code");
+
+  const { mutate: tokenMutate, isLoading: isGettingToken } = useGetToken();
+
+  useEffect(() => {
+    const handleTokenRequest = () => {
+      tokenMutate({
+        code: userCode!,
+        clientId: CLIENT_ID,
+        clientSecret: API_KEY,
+        redirectUri: CALLBACK_URI,
+      });
+    };
+
+    handleTokenRequest();
+  }, []);
   const {
     data: emailData,
     // isLoading: isLoadingEmailData,
@@ -121,6 +146,13 @@ const Dashboard: React.FC = () => {
   //       time: "2:00 PM",
   //     },
   //   ]);
+
+  if (isGettingToken)
+    return (
+      <div>
+        Authentication <Spin />
+      </div>
+    );
 
   return (
     <div className="max-w-5xl mx-auto p-8 mt-10">

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { GoogleOutlined, WindowsOutlined } from "@ant-design/icons";
 import { useMutation } from "@tanstack/react-query";
 import { _axios } from "../../config/api.config";
-import { CALLBACK_URI, CLIENT_ID } from "../../config/env.config";
+import { CALLBACK_URI, CLIENT_ID, N_BASE_URL } from "../../config/env.config";
 
 const LoginPage: React.FC = () => {
   const [form] = Form.useForm();
@@ -43,11 +43,11 @@ const LoginPage: React.FC = () => {
   });
 
   const handleGoogleLogin = () => {
-    mutation.mutate("google");
+    window.location.href = `${N_BASE_URL}/connect/auth?client_id=${CLIENT_ID}&redirect_uri=${CALLBACK_URI}&response_type=code&provider=google`;
   };
 
   const handleMicrosoftLogin = () => {
-    mutation.mutate("microsoft");
+    window.location.href = `${N_BASE_URL}/connect/auth?client_id=${CLIENT_ID}&redirect_uri=${CALLBACK_URI}&response_type=code&provider=${"microsoft"}`;
   };
 
   return (

@@ -10,12 +10,18 @@ import AddCalendarPage from "../pages/dashboard/add-calendar";
 import EmailForm from "../pages/dashboard/compose-email";
 import AddContact from "../pages/dashboard/add-contact";
 import AddMeeting from "../pages/dashboard/add-meeting";
+import HeroSection from "../pages/home";
 // import { NylasSchedulerEditor, NylasScheduling } from "@nylas/react";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Hello world!</div>,
+    element: (
+      <div>
+        <Navbar />
+        <HeroSection />
+      </div>
+    ),
   },
 
   {

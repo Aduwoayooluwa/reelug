@@ -71,7 +71,7 @@ const Dashboard: React.FC = () => {
 
   const userCode = searchParams.get("code");
 
-  const { mutate: tokenMutate, isLoading: isGettingToken } = useGetToken();
+  const { mutate: tokenMutate, isPending: isGettingToken } = useGetToken();
 
   useEffect(() => {
     const handleTokenRequest = () => {

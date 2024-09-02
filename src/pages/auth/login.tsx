@@ -20,28 +20,6 @@ const LoginPage: React.FC = () => {
     console.log("Failed:", errorInfo);
   };
 
-  const mutation = useMutation<unknown, unknown, string>({
-    mutationFn: (provider: string) =>
-      _axios.post(
-        `connect/auth?client_id=${CLIENT_ID}&redirect_uri=${CALLBACK_URI}&response_type=code&provider=${provider}`,
-        {
-          redirect_uri: CALLBACK_URI,
-        }
-      ),
-    mutationKey: ["emailKey"],
-    onSuccess: () => {
-      message.success("Login Successful!");
-
-      router("/dashboard");
-      form.resetFields();
-    },
-    onError: (error: any) => {
-      message.error(
-        `Failed to Login: ${error.response?.data?.message || error.message}`
-      );
-    },
-  });
-
   const handleGoogleLogin = () => {
     window.location.href = `${N_BASE_URL}/connect/auth?client_id=${CLIENT_ID}&redirect_uri=${CALLBACK_URI}&response_type=code&provider=google`;
   };

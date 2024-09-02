@@ -9,7 +9,6 @@ interface GetTokenParams {
   redirectUri: string;
 }
 
-
 interface TokenResponse {
   access_token: string;
   refresh_token: string;
@@ -19,28 +18,41 @@ interface TokenResponse {
   grant_id: string;
 }
 
-
-export const useGetToken = (): UseMutationResult<TokenResponse, AxiosError, GetTokenParams> => {
+export const useGetToken = (): UseMutationResult<
+  TokenResponse,
+  AxiosError,
+  GetTokenParams
+> => {
   const mutation = useMutation<TokenResponse, AxiosError, GetTokenParams>({
     mutationKey: ["getToken"],
-    mutationFn: async ({ code, clientId, clientSecret, redirectUri }: GetTokenParams): Promise<TokenResponse> => {
-      const response = await axios.post<TokenResponse>(`${N_BASE_URL}/v3/connect/token`, {
-        code,
-        client_id: clientId,
-        client_secret: clientSecret,
-        redirect_uri: redirectUri,
-        grant_type: "authorization_code",
-    }, {
-        headers: {
+    mutationFn: async ({
+      code,
+      clientId,
+      clientSecret,
+      redirectUri,
+    }: GetTokenParams): Promise<TokenResponse> => {
+      const response = await axios.post<TokenResponse>(
+        `${N_BASE_URL}connect/token`,
+        {
+          code,
+          client_id: clientId,
+          client_secret: clientSecret,
+          redirect_uri: redirectUri,
+          grant_type: "authorization_code",
+          code_verifier: "nylas",
+        },
+        {
+          headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
             Authorization: `Bearer ${API_KEY}`,
-        },
-    });
+          },
+        }
+      );
       return response.data;
     },
     onSuccess: (data) => {
-      localStorage.setItem("grant_id", data.grant_id);
+      localStorage.setItem("grant_id", data?.grant_id);
       console.log("Token fetched successfully", data);
     },
     onError: (error: AxiosError) => {

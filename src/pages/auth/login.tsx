@@ -44,38 +44,11 @@ const LoginPage: React.FC = () => {
           className="space-y-4"
           form={form}
         >
-          {/* <Form.Item
-            name="username"
-            rules={[{ required: true, message: "Please input your Username!" }]}
-          >
-            <Input size="large" placeholder="Username" />
-          </Form.Item>
-
-          <Form.Item
-            name="password"
-            rules={[{ required: true, message: "Please input your Password!" }]}
-          >
-            <Input.Password size="large" placeholder="Password" />
-          </Form.Item>
-
-          <Form.Item name="remember" valuePropName="checked" className="mb-0">
-            <Checkbox>Remember me</Checkbox>
-          </Form.Item> */}
-
           <Tag color="volcano" className="w-full text-center overflow-x-auto">
             Choose Authentication Method
           </Tag>
 
           <Form.Item className="text-center space-y-4">
-            {/* <Button
-              loading={mutation.isPending}
-              type="primary"
-              htmlType="submit"
-              className="w-full"
-            >
-              Log in
-            </Button> */}
-
             {/* Google Login Button */}
             <Button
               className="w-full mt-2 flex items-center justify-center"

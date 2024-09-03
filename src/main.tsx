@@ -5,13 +5,24 @@ import { RouterProvider } from "react-router-dom";
 import { router } from "./routes/route.config.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { ConfigProvider } from "antd";
 
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <ConfigProvider
+        theme={{
+          token: {
+            colorPrimary: "#16a34a",
+            fontFamily: "Work Sans, sans-serif",
+            colorText: "#6d6a6a",
+          },
+        }}
+      >
+        <RouterProvider router={router} />
+      </ConfigProvider>
 
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

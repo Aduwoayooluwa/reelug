@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1",
+    "email": "johndoe@example.com",
+    "jobTitle": "Frontend Developer",
+    "companyName": "Tech Solutions Inc.",
+    "status": "Pending",
+    "dateApplied": "2024-08-01"
+  },
+  {
+    "id": "2",
+    "email": "janedoe@example.com",
+    "jobTitle": "Backend Developer",
+    "companyName": "Innovative Labs",
+    "status": "Accepted",
+    "dateApplied": "2024-08-02"
+  },
+  {
+    "id": "3",
+    "email": "mike.smith@example.com",
+    "jobTitle": "Full Stack Developer",
+    "companyName": "Creative Agency",
+    "status": "Rejected",
+    "dateApplied": "2024-08-03"
+  }
+]

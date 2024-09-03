@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 .env
+
+# msc
+.todo

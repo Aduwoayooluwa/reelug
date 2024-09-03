@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
-import MainLayout from '../App'
+import MainLayout from "../App";
 import LoginPage from "../pages/auth/login";
-import Dashboard from "../pages/dashboard/dashboard";
+import Dashboard from "../pages/dashboard/user-dashboard";
 import HeroSection from "../pages/home";
 import AddCalendarPage from "../pages/dashboard/add-calendar";
 import EmailForm from "../pages/dashboard/compose-email";
@@ -14,7 +14,7 @@ import RemindersPage from "../pages/dashboard/reminders";
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout />, 
+    element: <MainLayout />,
     children: [
       { path: "/", element: <HeroSection /> },
       { path: "/add-job", element: <AddCalendarPage /> },

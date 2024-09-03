@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
-import { Form, Button, Tag } from "antd";
+import { Form, Input, Button, Tag } from "antd";
 import { useNavigate } from "react-router-dom";
 import { GoogleOutlined, WindowsOutlined } from "@ant-design/icons";
 import { CALLBACK_URI, CLIENT_ID, N_BASE_URL } from "../../config/env.config";
@@ -9,12 +9,12 @@ const LoginPage: React.FC = () => {
   const [form] = Form.useForm();
   const router = useNavigate();
 
-  const onFinish = (values: unknown) => {
+  const onFinish = (values: any) => {
     console.log("Success:", values);
     router("/dashboard");
   };
 
-  const onFinishFailed = (errorInfo: unknown) => {
+  const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
 
@@ -47,6 +47,29 @@ const LoginPage: React.FC = () => {
           <Tag color="volcano" className="w-full text-center overflow-x-auto">
             Choose Authentication Method
           </Tag>
+
+          {/* Email Input Field */}
+          <Form.Item
+            name="email"
+            rules={[{ required: true, message: "Please input your Email!" }]}
+          >
+            <Input type="email" placeholder="Email" />
+          </Form.Item>
+
+          {/* Password Input Field */}
+          <Form.Item
+            name="password"
+            rules={[{ required: true, message: "Please input your Password!" }]}
+          >
+            <Input.Password placeholder="Password" />
+          </Form.Item>
+
+          {/* Submit Button */}
+          <Form.Item>
+            <Button type="primary" htmlType="submit" className="w-full mt-2">
+              Login
+            </Button>
+          </Form.Item>
 
           <Form.Item className="text-center space-y-4">
             {/* Google Login Button */}

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Drawer, Button } from "antd";
+import { Link } from "react-router-dom";
+import { Drawer, Button, Avatar, Tooltip } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
+import { N_BASE_URL, CALLBACK_URI, CLIENT_ID } from "../config/env.config";
+import { GoogleOutlined, WindowsOutlined } from "@ant-design/icons";
 
 const Navbar: React.FC = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
 
   const showDrawer = () => {
@@ -15,21 +17,25 @@ const Navbar: React.FC = () => {
     setIsDrawerVisible(false);
   };
 
-  return (
-    <nav className="bg-white shadow-sm border-b fixed w-full z-10 top-0">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="flex justify-between items-center py-4">
-          {/* Brand Name */}
-          <div
-            className="text-2xl font-bold cursor-pointer"
-            onClick={() => navigate("/")}
-          >
-            ReeLug
-          </div>
+  const handleGoogleLogin = () => {
+    window.location.href = `${N_BASE_URL}/connect/auth?client_id=${CLIENT_ID}&redirect_uri=${CALLBACK_URI}&response_type=code&provider=google`;
+  };
 
+  const handleMicrosoftLogin = () => {
+    window.location.href = `${N_BASE_URL}/connect/auth?client_id=${CLIENT_ID}&redirect_uri=${CALLBACK_URI}&response_type=code&provider=${"microsoft"}`;
+  };
+
+  return (
+    <nav className="bg-white shadow   border-b fixed w-full md:w-[calc(100%-200px)] lg:w-[calc(100%-294px)] ml-0 md:ml-[200px] lg:ml-[294px] z-20 top-0">
+      <div className="max-w-6xl px-10 2xl:px-0  mx-auto">
+        <div className="flex justify-between items-center py-4">
+          {/* screen Name */}
+          <div>
+            <h2 className="font-[500] text-xl">Dashboard</h2>
+          </div>
           {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-6">
-            <Link to="/dashboard" className="hover:text-blue-500">
+          <div className="hidden md:flex items-center space-x-6">
+            {/* <Link to="/dashboard" className="hover:text-blue-500">
               Dashboard
             </Link>
             <Link to="/add-job" className="hover:text-blue-500">
@@ -40,7 +46,43 @@ const Navbar: React.FC = () => {
             </Link>
             <Link to="/email-templates" className="hover:text-blue-500">
               Email Templates
-            </Link>
+            </Link> */}
+
+            <Button
+              className=" flex items-center justify-center"
+              style={{
+                backgroundColor: "#4285F4",
+                color: "#fff",
+                borderRadius: "4px",
+                border: "none",
+              }}
+              icon={<GoogleOutlined />}
+              onClick={handleGoogleLogin}
+            >
+              Connect Google
+            </Button>
+
+            {/* Microsoft Login Button */}
+            <Button
+              className=" flex items-center justify-center"
+              style={{
+                backgroundColor: "#2F2F2F",
+                color: "#fff",
+                borderRadius: "4px",
+                border: "none",
+              }}
+              icon={<WindowsOutlined />}
+              onClick={handleMicrosoftLogin}
+            >
+              Connect Microsoft
+            </Button>
+
+            <Tooltip className="flex items-center space-x-3">
+              <Avatar.Group shape="square">
+                <Avatar style={{ backgroundColor: "#f56a00" }}>{"AA"}</Avatar>
+              </Avatar.Group>
+              <p className="font-[500]">{"Ayooluwa Aduwo"}</p>
+            </Tooltip>
           </div>
 
           {/* Mobile Menu Button */}
@@ -83,6 +125,35 @@ const Navbar: React.FC = () => {
           >
             Email Templates
           </Link>
+
+          <Button
+            className="w-full mt-2 flex items-center justify-center"
+            style={{
+              backgroundColor: "#4285F4",
+              color: "#fff",
+              borderRadius: "4px",
+              border: "none",
+            }}
+            icon={<GoogleOutlined />}
+            onClick={handleGoogleLogin}
+          >
+            Connect Google
+          </Button>
+
+          {/* Microsoft Login Button */}
+          <Button
+            className="w-full mt-2 flex items-center justify-center"
+            style={{
+              backgroundColor: "#2F2F2F",
+              color: "#fff",
+              borderRadius: "4px",
+              border: "none",
+            }}
+            icon={<WindowsOutlined />}
+            onClick={handleMicrosoftLogin}
+          >
+            Connect Microsoft
+          </Button>
         </div>
       </Drawer>
     </nav>

@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+}
 :root {
   font-family: "Work Sans", sans-serif;
   font-optical-sizing: auto;

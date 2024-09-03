@@ -155,7 +155,7 @@ const Dashboard: React.FC = () => {
     );
 
   return (
-    <div className="max-w-5xl mx-auto p-8 mt-10">
+    <div className="max-w-6xl mx-auto py-8 mt-10">
       {/* Quick Stats Section */}
       <Row gutter={16} className="mb-8">
         <Col span={8}>

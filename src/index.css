@@ -15,6 +15,42 @@ body {
   font-weight: 400; */
 }
 
+.gear {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  transform-origin: center;
+  /* cursor: pointer; */
+  animation: rotateGear 5s linear infinite;
+}
+
+@keyframes rotateGear {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.modal-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.modal-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 5px;
+}
+
+.modal-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.modal-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
+}
+
 /* a {
   font-weight: 500;
   color: #646cff;

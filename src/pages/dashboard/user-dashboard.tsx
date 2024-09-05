@@ -3,7 +3,9 @@ import { Table, Tag, Alert, Input, Select, Space, Button } from "antd";
 import axios from "axios";
 import { useMemo, useState } from "react";
 import { debounce } from "../../helper/helper";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+import AddJob from "./add-job";
+import { AnimatePresence } from "framer-motion";
 
 const { Option } = Select;
 
@@ -72,6 +74,10 @@ export default function Dashboard() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
 
+  const [searchParams] = useSearchParams("");
+  const addModalOpen = Boolean(searchParams.get("add-job"));
+
+  console.log(addModalOpen, "addjob modal popen");
   const { data, isLoading, isError, error } = useQuery<DataType[], Error>({
     queryKey: ["jobApplications", searchTerm, statusFilter],
     queryFn: () => fetchJobApplications(searchTerm, statusFilter),
@@ -106,12 +112,12 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="mt-20 max-w-6xl px-10 2xl:px-0 mx-auto space-y-5">
+    <div className="mt-20 max-w-6xl relative px-10 2xl:px-0 mx-auto space-y-5">
       <header className="flex items-center space-x-4 justify-between">
         <h2 className="font-[500] text-xl">Your Applied Jobs</h2>
 
         <Button type="primary">
-          <Link to="/add-job">Add a Job</Link>
+          <Link to="?add-job=true">Add a Job</Link>
         </Button>
       </header>
       <Space size={16}>
@@ -139,6 +145,13 @@ export default function Dashboard() {
         dataSource={data}
         pagination={{ pageSize: 5 }}
       />
+
+      {/* modal sections */}
+      {addModalOpen ? (
+        <AnimatePresence>
+          <AddJob />
+        </AnimatePresence>
+      ) : null}
     </div>
   );
 }

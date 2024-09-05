@@ -1,5 +1,8 @@
-import { Button } from "antd";
+import { Button, Space } from "antd";
 import { useNavigate } from "react-router-dom";
+import { PrimaryButton } from "../../components/button.components";
+import { LoginOutlined } from "@ant-design/icons";
+import RotatingGear from "../../components/hero-image";
 
 const HeroSection = () => {
   const router = useNavigate();
@@ -9,30 +12,37 @@ const HeroSection = () => {
   };
 
   return (
-    <div
-      className="relative w-full h-screen bg-cover bg-center"
-      style={{
-        backgroundImage: `url('/img_size.webp')`,
-      }}
-    >
-      <div className="absolute inset-0 bg-black bg-opacity-50"></div>{" "}
-      {/* Overlay to make text stand out */}
-      <div className="relative z-10 flex flex-col justify-center items-center h-full px-6 text-center text-white">
-        <h1 className="text-4xl md:text-6xl font-bold mb-4">
-          Welcome to ReeLug
+    <div className="relative pt-10 md:pt-40 flex flex-col md:flex-row px-6 lg:px-40 justify-evenly md:justify-between items-center w-full h-screen text-dark">
+      <div className="w-full  flex mt-10 md:w-[50%] 2xl:w-[500px] md:hidden flex-col order-0 justify-center h-fit md:h-full">
+        <img src={"/bulb.svg"} alt="hero image" />
+      </div>
+      <div className="relative  z-10 flex flex-col space-y-5 md:space-y-8 w-full md:max-w-[50%]  justify-center items-start h-fit md:h-full text-dark">
+        <h1 className="text-4xl text-start md:text-6xl leading-normal md:leading-tight font-bold">
+          Manage Your Job Applications More Efficiently
         </h1>
-        <p className="text-lg md:text-xl mb-6 max-w-2xl">
-          Manage your job applications, stay updated on interviews, and connect
-          seamlessly — all in one place.
+
+        <p className=" text-start text-lg md:text-xl max-w-2xl">
+          Stay updated on interviews, and connect seamlessly — all in one place.
+          Organize your job search journey with ease, from initial applications
+          to final offers.
         </p>
-        <Button
-          type="primary"
-          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg"
-          onClick={handleLoginRedirect}
-          size="large"
-        >
-          Get Started
-        </Button>
+
+        <Space size={32} className="">
+          <PrimaryButton
+            onClick={handleLoginRedirect}
+            icon={<LoginOutlined size={8} />}
+          >
+            Get Started
+          </PrimaryButton>
+
+          <Button className="w-[171.5px] h-[57px] mt-1 text-[18px] font-[500] text-dark border-dark hover:text-white transition-all duration-300 ease-linear hover:bg-primary">
+            Buy Now
+          </Button>
+        </Space>
+      </div>
+
+      <div className="w-full hidden md:w-[50%] 2xl:w-[500px] md:flex flex-col order-0 justify-center h-fit md:h-full">
+        <RotatingGear />
       </div>
     </div>
   );

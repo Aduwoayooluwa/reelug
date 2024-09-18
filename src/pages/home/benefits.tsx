@@ -21,14 +21,14 @@ export default function Benefits() {
         }
     ]
     return (
-        <div className="px-28 py-20 space-y-14">
+        <div className="px-6 md:px-28 py-20 md:py-20 space-y-14">
             <div className="w-full flex flex-col space-y-8 items-center justify-center">
         <h1 className=" w-full md:w-[70%] 2xl:w-[60%] text-2xl md:text3xl leading-normal md:leading-tight lg:text-[64px] text-center font-[600]">
           Key Benefits for you
         </h1>
 
         <div className="w-full gap-8 md:w-[80%] grid place-items-center">
-        <p className="text-center text-dark text-[20px]">
+        <p className="text-center text-dark hidden md:block text-[20px]">
         We understand that effectively managing job applications is the cornerstone of a successful job search. With that in mind, we&apos;re passionate about simplifying your application process and helping you stay organized, so you can focus on landing your dream job.
         </p>
         <PrimaryButton icon={<OneToOneOutlined />}>
@@ -36,12 +36,12 @@ export default function Benefits() {
         </PrimaryButton>
         </div>
       </div>
-            <div className="flex items-center w-full justify-between">
-                <div className="w-[50%] rounded-md overflow-hidden">
+            <div className="flex flex-col md:flex-row items-center w-full justify-between">
+                <div className="w-full md:w-[50%] rounded-md overflow-hidden">
                     <img src={BenefitImg} alt='benefits' />
                 </div>
 
-                <div className="w-[40%] space-y-5">
+                <div className="w-full md:w-[40%] mt-10 md:mt-0 space-y-5">
                     {
                         allBenefits.map((benefit, index) => (
                             <Benefit key={index} {...benefit} />

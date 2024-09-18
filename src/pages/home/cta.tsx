@@ -3,11 +3,11 @@ import { CTAImage } from "../../components/imgs/cta-image";
 
 export function CTA() {
     return (
-        <div className="p-6 md:p-28 flex justify-between items-center border-y border-dark bg-[#d7f3fe] w-full">
-            <div className="space-y-14 w-[50%]">
+        <div className="px-6 py-20 md:p-28 flex flex-col md:flex-row justify-between items-center border-y border-dark bg-[#d7f3fe] w-full">
+            <div className="space-y-14 w-full md:w-[50%]">
                <div>
-               <h1 className="text-[64px] font-bold">Stay Organized, Stay Ahead!</h1>
-               <p className="text-[20px]">Keep all your job applications in one place. Sign up for ReeLug and never miss an opportunity.</p>
+               <h1 className="text-2xl md:text-[32px] xl:text-[64px] font-bold">Stay Organized, Stay Ahead!</h1>
+               <p className="text-[16px] mt-2 md:mt-0 md:text-[20px]">Keep all your job applications in one place. Sign up for ReeLug and never miss an opportunity.</p>
                </div>
             
                 <div className="flex items-center mt-7 space-x-4">
@@ -20,7 +20,7 @@ export function CTA() {
             </div>
 
 
-            <div className="w-[40%] flex items-center justify-end">
+            <div className="w-full md:w-[40%] flex items-center justify-end">
                 <CTAImage />
             </div>
 

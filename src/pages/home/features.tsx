@@ -57,14 +57,14 @@ const menuItems = [
 
 export function Features() {
   return (
-    <div className="px-6 md:px-28 border-y border-dark bg-[#d7f3fe] min-h-screen py-40">
+    <div className="px-6 md:px-28 border-y border-dark bg-[#d7f3fe] min-h-screen py-20 md:py-40">
       <div className="w-full grid place-items-center">
         <h1 className=" w-full md:w-[70%] 2xl:w-[60%] text-2xl md:text3xl leading-normal md:leading-tight text-center lg:text-[64px] font-[600]">
           Making Job Application easy for you
         </h1>
       </div>
 
-      <Row gutter={[24, 24]} className="mt-40">
+      <Row gutter={[24, 24]} className="mt-10 md:mt-20 xl:mt-40">
         {menuItems.map((menu) => (
           <Col className='' xs={24} sm={24} md={12} lg={8} key={menu.title}>
             <div

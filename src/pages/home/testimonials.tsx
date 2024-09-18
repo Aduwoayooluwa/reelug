@@ -56,7 +56,7 @@ const Testimonials = () => {
   return (
     <motion.div
       ref={sectionRef}
-      className="w-full px-6 md:px-28 bg-green-100 py-10 md:py-28 lg:py-40 h-screen relative overflow-hidden"
+      className="w-full  px-6 md:px-28 bg-green-100 py-10 md:py-28 lg:py-40 h-screen relative overflow-hidden"
     >
 
     <h1 className=" w-full md:w-[70%] 2xl:w-[60%] text-2xl md:text3xl leading-normal md:leading-tight text-start lg:text-[64px] font-[600]">What users have to say about us</h1>

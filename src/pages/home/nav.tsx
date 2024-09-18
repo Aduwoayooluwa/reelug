@@ -13,7 +13,7 @@ const Navigation: React.FC = () => {
   };
 
   return (
-    <nav className="flex items-center bg-white z-30 fixed shadow px-6 md:px-40 top-0 w-full h-[97px] justify-between py-4">
+    <nav className="flex items-center bg-white z-30 fixed shadow px-6 md:px-28 top-0 w-full h-[97px] justify-between py-4">
       {/* Logo Section */}
       <div className="flex items-center">
         <div className="mr-1 w-16 h-16 relative">

@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Drawer, Button, Avatar, Tooltip } from "antd";
-import { MenuOutlined } from "@ant-design/icons";
 import { N_BASE_URL, CALLBACK_URI, CLIENT_ID } from "../config/env.config";
-import { GoogleOutlined, WindowsOutlined } from "@ant-design/icons";
+import { GoogleOutlined, WindowsOutlined, MenuOutlined } from "@ant-design/icons";
 
 const Navbar: React.FC = () => {
   // const navigate = useNavigate();

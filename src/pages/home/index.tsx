@@ -12,7 +12,7 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="relative pt-10 md:pt-40 flex flex-col md:flex-row px-6 lg:px-40 justify-evenly md:justify-between items-center w-full h-screen text-dark">
+    <div className="relative pt-10 md:pt-40 flex flex-col md:flex-row px-6 lg:px-28 justify-evenly md:justify-between items-center w-full h-screen text-dark">
       <div className="w-full  flex mt-10 md:w-[50%] 2xl:w-[500px] md:hidden flex-col order-0 justify-center h-fit md:h-full">
         <img src={"/bulb.svg"} alt="hero image" />
       </div>

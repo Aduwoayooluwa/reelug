@@ -1,0 +1,57 @@
+.animated {
+    width: 100%;
+    height: auto;
+  }
+  
+  .animable {
+    opacity: 0;
+  }
+  
+  #freepik_stories-work-time.animated #freepik--Desk--inject-1--inject-48 {
+    animation: 1.5s infinite linear heartbeat;
+    animation-delay: 0s;
+  }
+  
+  #freepik_stories-work-time.animated #freepik--Character--inject-1--inject-48 {
+    animation: 1.5s infinite linear floating;
+    animation-delay: 0s;
+  }
+  
+  @keyframes heartbeat {
+    0% {
+      transform: scale(1);
+    }
+    10% {
+      transform: scale(1.1);
+    }
+    30% {
+      transform: scale(1);
+    }
+    40% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    60% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes floating {
+    0% {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+  }
+  

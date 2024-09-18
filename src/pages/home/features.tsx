@@ -66,9 +66,9 @@ export function Features() {
 
       <Row gutter={[24, 24]} className="mt-40">
         {menuItems.map((menu) => (
-          <Col xs={24} sm={24} md={12} lg={8} key={menu.title}>
+          <Col className='' xs={24} sm={24} md={12} lg={8} key={menu.title}>
             <div
-              className={`${menu.bgColor} border border-dark rounded-[10px] p-6  flex flex-col text-dark justify-center h-[378px]`}
+              className={`${menu.bgColor} border hover:ring-4 hover:scale-[1.01] hover:ring-dark transition-all ease-linear duration-300 border-dark rounded-[10px] p-6  flex flex-col text-dark justify-center h-[378px]`}
             >
               <div className="w-full grid place-items-center">
                 <div className="text-3xl bg-white p-6 border rounded-full w-[110px] h-[110px] grid place-items-center mb-4">

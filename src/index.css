@@ -4,12 +4,18 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@font-face {
+  font-family: 'Reelug';
+  src: url('./assets/font/reelug_base.woff2')
+}
+
 body {
-  font-family: "Work Sans", sans-serif;
+  font-family: "Reelug", sans-serif;
   font-optical-sizing: auto;
 }
 :root {
-  font-family: "Work Sans", sans-serif;
+  font-family: "Reelug", sans-serif;
   font-optical-sizing: auto;
   /* line-height: 1.5;
   font-weight: 400; */

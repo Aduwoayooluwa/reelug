@@ -3,7 +3,7 @@ import {
   DashboardOutlined,
   LogoutOutlined,
   MailOutlined,
-  TagOutlined,
+  // TagOutlined,
   VideoCameraAddOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -57,15 +57,15 @@ export default function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
               path: "/dashboard",
             },
             { icon: <CalendarOutlined />, text: "Calendar", path: "/calendar" },
-            {
-              icon: <TagOutlined />,
-              text: "Applied Jobs",
-              path: "/applied-jobs",
-            },
+            // {
+            //   icon: <TagOutlined />,
+            //   text: "Applied Jobs",
+            //   path: "/applied-jobs",
+            // },
             {
               icon: <VideoCameraAddOutlined />,
               text: "Interviews",
-              path: "/interview-schedule",
+              path: "/interviews",
             },
             { icon: <MailOutlined />, text: "Mails", path: "/your-mails" },
           ].map((item, index) => (
@@ -75,7 +75,7 @@ export default function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
                 isCollapsed ? "justify-center" : ""
               }`}
             >
-              {item.icon}
+              <Link to={item.path}>{item.icon}</Link>
               {!isCollapsed && (
                 <Link to={item.path} className="ml-4">
                   {item.text}

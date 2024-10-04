@@ -1,4 +1,4 @@
-import { Divider, Flex, Space } from "antd";
+import { Divider, Flex, Space, Button, Modal, Form, Input } from "antd";
 import EmptyImage from "../../../assets/imgs/empty_mail.gif";
 import { useState } from "react";
 
@@ -9,7 +9,9 @@ const MailLayout = ({ content }: { content: Record<string, unknown> }) => {
     <div className="flex items-center w-full min-h-screen bg-white ">
       <div></div>
 
-      <div>{isContentEmpty ? <EmptyMail /> : <MailContent />}</div>
+      <div className="w-full">
+        {isContentEmpty ? <EmptyMail /> : <MailContent />}
+      </div>
     </div>
   );
 };
@@ -64,11 +66,18 @@ function MailContent() {
   const [selectedEmail, setSelectedEmail] = useState<
     (typeof emailData)[0] | null
   >(null);
+  const [isComposeModalVisible, setIsComposeModalVisible] = useState(false);
+
+  const showComposeModal = () => setIsComposeModalVisible(true);
+  const hideComposeModal = () => setIsComposeModalVisible(false);
 
   return (
     <div className="p-6 w-full h-[90vh] overflow-hidden">
-      <div className="mb-4 mt-8">
+      <div className="mb-4 mt-8 flex justify-between w-full items-center">
         <h2 className="font-[600] text-gray-800">Inbox</h2>
+        <Button type="primary" onClick={showComposeModal}>
+          Compose
+        </Button>
       </div>
       <Flex className="h-[calc(90vh-80px)]">
         <Space
@@ -101,6 +110,10 @@ function MailContent() {
           )}
         </div>
       </Flex>
+      <ComposeModal
+        visible={isComposeModalVisible}
+        onClose={hideComposeModal}
+      />
     </div>
   );
 }
@@ -121,6 +134,58 @@ const EmailContent = ({ email }: { email: (typeof emailData)[0] }) => (
     {/* Add more content here as needed */}
   </div>
 );
+
+const ComposeModal = ({
+  visible,
+  onClose,
+}: {
+  visible: boolean;
+  onClose: () => void;
+}) => {
+  const [form] = Form.useForm();
+
+  const handleSend = (values: unknown) => {
+    console.log("Sending email:", values);
+    form.resetFields();
+    onClose();
+  };
+
+  return (
+    <Modal
+      title="Compose Email"
+      open={visible}
+      onCancel={onClose}
+      footer={null}
+      width={600}
+      className="compose-modal"
+    >
+      <Form form={form} layout="vertical" onFinish={handleSend}>
+        <Form.Item
+          name="to"
+          label="To"
+          rules={[{ required: true, message: "Please input recipient email!" }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item name="subject" label="Subject">
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="message"
+          label="Message"
+          rules={[{ required: true, message: "Please input your message!" }]}
+        >
+          <Input.TextArea rows={10} />
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            Send
+          </Button>
+        </Form.Item>
+      </Form>
+    </Modal>
+  );
+};
 
 export default MailLayout;
 

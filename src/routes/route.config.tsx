@@ -12,6 +12,8 @@ import EmailTemplatesPage from "../pages/dashboard/email-templates";
 import RemindersPage from "../pages/dashboard/reminders";
 import Navigation from "../pages/home/nav";
 import Mails from "../pages/dashboard/mails/mails";
+import Calendar from "../pages/dashboard/calendar/calendar";
+import Interviews from "../pages/dashboard/interviews/interviews";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +38,8 @@ export const router = createBrowserRouter([
       { path: "/reminders", element: <RemindersPage /> },
       { path: "/dashboard", element: <Dashboard /> },
       { path: "/your-mails", element: <Mails /> },
+      { path: "/calendar", element: <Calendar /> },
+      { path: "/interviews", element: <Interviews /> },
     ],
   },
   {

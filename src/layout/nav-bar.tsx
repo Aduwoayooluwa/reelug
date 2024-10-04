@@ -1,13 +1,30 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import { Button, Avatar, Tooltip } from "antd";
 import { N_BASE_URL, CALLBACK_URI, CLIENT_ID } from "../config/env.config";
 import { GoogleOutlined, WindowsOutlined } from "@ant-design/icons";
+
+const routeTitles = {
+  "/dashboard": "Dashboard",
+  "/calendar": "Calendar",
+  "/applied-jobs": "Applied Jobs",
+  "/interviews": "Interviews",
+  "/your-mails": "Mails",
+  "/add-job": "Add Job",
+  "/compose-email": "Compose Email",
+  "/add-contact": "Add Contact",
+  "/add-meeting": "Add Meeting",
+  "/email-templates": "Email Templates",
+  "/reminders": "Reminders",
+};
 
 interface NavbarProps {
   isSidebarCollapsed: boolean;
 }
 
 const Navbar: React.FC<NavbarProps> = ({ isSidebarCollapsed }) => {
+  const location = useLocation();
+
   const handleGoogleLogin = () => {
     window.location.href = `${N_BASE_URL}/connect/auth?client_id=${CLIENT_ID}&redirect_uri=${CALLBACK_URI}&response_type=code&provider=google`;
   };
@@ -24,7 +41,11 @@ const Navbar: React.FC<NavbarProps> = ({ isSidebarCollapsed }) => {
         <div className="flex justify-between items-center">
           {/* Screen Name */}
           <div>
-            <h2 className="font-[500] text-xl">Dashboard</h2>
+            {routeTitles[location.pathname as keyof typeof routeTitles] && (
+              <h2 className="font-[500] text-xl">
+                {routeTitles[location.pathname as keyof typeof routeTitles]}
+              </h2>
+            )}
           </div>
 
           {/* Desktop Menu */}

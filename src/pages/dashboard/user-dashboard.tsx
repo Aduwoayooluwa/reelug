@@ -1,8 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Table, Tag, Alert, Input, Select, Space, Button, Modal } from "antd";
 import axios from "axios";
-import { useMemo, useState } from "react";
-import { debounce } from "../../helper/helper";
+import { useMemo, useState, useCallback } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import AddJob from "./add-job";
 
@@ -56,19 +55,11 @@ const columns = [
   },
 ];
 
-const fetchJobApplications = async (
-  search: string,
-  status: string
-): Promise<DataType[]> => {
-  const params = new URLSearchParams();
-  if (search) params.append("q", search);
-  if (status) params.append("status", status);
-
-  const response = await axios.get<DataType[]>("/data/jobs.json", {
-    params,
-  });
+const fetchJobApplications = async (): Promise<DataType[]> => {
+  const response = await axios.get<DataType[]>("/data/jobs.json");
   return response.data;
 };
+
 export default function Dashboard() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
@@ -80,26 +71,39 @@ export default function Dashboard() {
 
   console.log(addModalOpen, "addjob modal popen");
 
-
   const { data, isLoading, isError, error } = useQuery<DataType[], Error>({
-    queryKey: ["jobApplications", searchTerm, statusFilter],
-    queryFn: () => fetchJobApplications(searchTerm, statusFilter),
+    queryKey: ["jobApplications"],
+    queryFn: fetchJobApplications,
     staleTime: 1000 * 60 * 5,
     retry: 2,
   });
 
-  const debouncedSearchTerm = useMemo(
-    () => debounce((value) => setSearchTerm(value), 300),
+  const filteredData = useMemo(() => {
+    if (!data) return [];
+    return data.filter((item) => {
+      const matchesSearch =
+        searchTerm === "" ||
+        item.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.companyName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.jobTitle.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesStatus =
+        statusFilter === "" ||
+        statusFilter === "All" ||
+        item.status === statusFilter;
+      return matchesSearch && matchesStatus;
+    });
+  }, [data, searchTerm, statusFilter]);
+
+  const handleSearchChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchTerm(e.target.value);
+    },
     []
   );
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    debouncedSearchTerm(e.target.value);
-  };
-
-  const handleStatusChange = (value: string) => {
+  const handleStatusChange = useCallback((value: string) => {
     setStatusFilter(value);
-  };
+  }, []);
 
   function onClose() {
     router("/dashboard");
@@ -140,7 +144,9 @@ export default function Dashboard() {
           onChange={handleStatusChange}
           style={{ width: 200 }}
           allowClear
+          defaultValue="All"
         >
+          <Option value="All">All</Option>
           <Option value="Pending">Pending</Option>
           <Option value="Accepted">Accepted</Option>
           <Option value="Rejected">Rejected</Option>
@@ -149,12 +155,12 @@ export default function Dashboard() {
       <Table
         loading={isLoading}
         columns={columns}
-        dataSource={data}
+        dataSource={filteredData}
         pagination={{ pageSize: 5 }}
       />
 
-    <Modal closable={false}  open={addModalOpen} onClose={onClose}>
-      <AddJob />
+      <Modal closable={false} open={addModalOpen} onClose={onClose}>
+        <AddJob />
       </Modal>
     </div>
   );

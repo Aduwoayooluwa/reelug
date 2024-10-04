@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Form, Input, Button, Select, DatePicker, message } from "antd";
 import { ClockCircleOutlined, CloseCircleFilled } from "@ant-design/icons";
-import ModalTransition from "../../layout/modal-transition";
 import { useNavigate } from "react-router-dom";
 
 const { Option } = Select;
@@ -25,7 +24,7 @@ const AddJob: React.FC = () => {
   };
 
   return (
-    <ModalTransition>
+    <>
       <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
         <div className="w-[694px] max-h-[90%] h-[730px] overflow-y-auto modal-scrollbar py-16 px-8 bg-white relative shadow-md rounded-lg">
           <div className="w-full">
@@ -145,7 +144,7 @@ const AddJob: React.FC = () => {
           </Form>
         </div>
       </div>
-    </ModalTransition>
+    </>
   );
 };
 

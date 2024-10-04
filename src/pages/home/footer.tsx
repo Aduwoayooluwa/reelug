@@ -10,10 +10,10 @@ import { Link } from "react-router-dom";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-white relative border-t px-28 border-dark h-full py-10">
+    <footer className="bg-white relative border-t px-8 md:px-28 border-dark w-full  h-screen md:h-full py-5 md:py-10">
       <div className="w-full mx-auto px-4 grid place-items-center h-[calc(100%-100px)]">
         {/* Top Section */}
-        <div className="flex items-start w-full justify-between">
+        <div className="flex flex-col md:flex-row items-start w-full justify-between">
           {/* Branding Section */}
           <div className=" space-y-7">
           <div className="flex  items-center">
@@ -24,7 +24,7 @@ const Footer: React.FC = () => {
           Reelug<span className="text-primary font-bold text-2xl">.</span>
         </h1>
       </div>
-            <p className="text-dark w-[400px] font-[500] mb-4">
+            <p className="text-dark w-full md:w-[400px] font-[500] mb-4">
               We&apos;ve developed a solution that will streamline your job application process and help you stay organized, giving you the edge to land your dream job faster with ReeLug.
             </p>
             <p className="text-dark mb-4">Email: reelug.co@gmail.com</p>
@@ -53,7 +53,7 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Other Pages Section */}
-          <div className="space-y-7 pt-5 text-dark">
+          <div className="space-y-7 hidden pt-5 text-dark">
             <h3 className="text-lg font-bold mb-4">Other Pages</h3>
             <ul className="space-y-2">
               {[
@@ -74,7 +74,7 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Utility Pages Section */}
-          <div className="space-y-7 pt-5  text-dark">
+          <div className="space-y-7 hidden pt-5  text-dark">
             <h3 className="text-lg font-bold mb-4">Utility Pages</h3>
             <ul className="space-y-2">
               {[
@@ -96,7 +96,7 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Section */}
-        <div className="mt-8 border-t absolute w-[calc(100%-14rem)] bottom-10 border-dark pt-4 flex flex-col md:flex-row items-center full justify-center">
+        <div className="mt-4 md:mt-8 border-t absolute w-full md:w-[calc(100%-14rem)] bottom-10 border-dark pt-4 flex flex-col md:flex-row items-center full justify-center">
           <p className="text-dark font-[500] text-center md:text-left">
             Copyright © Reelug | Designed by{" "}
             <Link to="https://ayooluwa.dev" className="text-dark font-[600] hover:text-primary underline transition-colors ease-linear duration-300 hover:underline">

@@ -11,6 +11,7 @@ import JobDetailsPage from "../pages/dashboard/job-details";
 import EmailTemplatesPage from "../pages/dashboard/email-templates";
 import RemindersPage from "../pages/dashboard/reminders";
 import Navigation from "../pages/home/nav";
+import Mails from "../pages/dashboard/mails/mails";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,7 @@ export const router = createBrowserRouter([
       { path: "/email-templates", element: <EmailTemplatesPage /> },
       { path: "/reminders", element: <RemindersPage /> },
       { path: "/dashboard", element: <Dashboard /> },
+      { path: "/your-mails", element: <Mails /> },
     ],
   },
   {

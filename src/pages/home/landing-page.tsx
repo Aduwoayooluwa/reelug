@@ -20,7 +20,7 @@ export function HomePage() {
       <Testimonials />
       <CTA />
 
-      <footer className="w-full hidden md:block h-[600px]">
+      <footer className="w-full  md:block h-[600px]">
       <Footer />
       </footer>
     </div>

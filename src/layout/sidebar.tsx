@@ -5,62 +5,103 @@ import {
   MailOutlined,
   TagOutlined,
   VideoCameraAddOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
 } from "@ant-design/icons";
 import { Button } from "antd";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
-export default function Sidebar() {
+interface SidebarProps {
+  isCollapsed: boolean;
+  onToggle: () => void;
+}
+
+export default function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === "/your-mails" && !isCollapsed) {
+      onToggle();
+    }
+  }, [location.pathname]);
 
   return (
-    <div className="w-[200px] border-r border-gray-300 lg:w-[294px] p-6 bg-white h-screen hidden md:block fixed z-20 transition-all transform ease-linear left-0 top-0">
-      {/* logo */}
-      <div
-        className="text-2xl flex items-center space-x-3 font-bold cursor-pointer"
-        onClick={() => navigate("/")}
-      >
-        <img
-          src={"/reelog_logo.svg"}
-          className="w-[50px] h-[50px]"
-          alt="logo"
-        />
-        ReeLug
-      </div>
-
-      <div className="space-y-4 mt-20">
-        <div className="space-x-4 hover:bg-green-100 hover:text-green-600 hover:font-[500] p-2 rounded">
-          <DashboardOutlined />
-          <Link to="/dashboard">Dashboard</Link>
+    <div
+      className={`border-r border-gray-300 bg-white h-full fixed z-20 transition-all duration-300 ease-linear left-0 top-0 ${
+        isCollapsed ? "w-16" : "w-64"
+      }`}
+    >
+      <div className={`p-6 ${isCollapsed ? "px-2" : ""}`}>
+        {/* logo */}
+        <div
+          className={`text-2xl flex items-center font-bold cursor-pointer ${
+            isCollapsed ? "justify-center" : "space-x-3"
+          }`}
+          onClick={() => navigate("/")}
+        >
+          <img
+            src={"/reelog_logo.svg"}
+            className="w-[50px] h-[50px]"
+            alt="logo"
+          />
+          {!isCollapsed && <span>ReeLug</span>}
         </div>
 
-        <div className="space-x-4  hover:bg-green-100 hover:text-green-600 hover:font-[500] p-2 rounded">
-          <CalendarOutlined />
-          <Link to="/calendar">Calendar</Link>
+        <div className="space-y-4 mt-20">
+          {[
+            {
+              icon: <DashboardOutlined />,
+              text: "Dashboard",
+              path: "/dashboard",
+            },
+            { icon: <CalendarOutlined />, text: "Calendar", path: "/calendar" },
+            {
+              icon: <TagOutlined />,
+              text: "Applied Jobs",
+              path: "/applied-jobs",
+            },
+            {
+              icon: <VideoCameraAddOutlined />,
+              text: "Interviews",
+              path: "/interview-schedule",
+            },
+            { icon: <MailOutlined />, text: "Mails", path: "/your-mails" },
+          ].map((item, index) => (
+            <div
+              key={index}
+              className={`hover:bg-green-100 hover:text-green-600 hover:font-[500] p-2 rounded flex items-center ${
+                isCollapsed ? "justify-center" : ""
+              }`}
+            >
+              {item.icon}
+              {!isCollapsed && (
+                <Link to={item.path} className="ml-4">
+                  {item.text}
+                </Link>
+              )}
+            </div>
+          ))}
         </div>
 
-        <div className="space-x-4 hover:bg-green-100 hover:text-green-600 hover:font-[500] p-2 rounded">
-          <TagOutlined />
-          <Link to="/applied-jobs">Applied Jobs</Link>
-        </div>
-
-        <div className="space-x-4 hover:bg-green-100 hover:text-green-600 hover:font-[500] p-2 rounded">
-          <VideoCameraAddOutlined />
-          <Link to="/interview-schedule">Interviews</Link>
-        </div>
-
-        <div className="space-x-4 hover:bg-green-100 hover:text-green-600 hover:font-[500] p-2 rounded">
-          <MailOutlined />
-          <Link to="/your-mails">Mails</Link>
-        </div>
+        <Button
+          className="bottom-20 absolute left-1/2 transform -translate-x-1/2"
+          type="primary"
+          icon={<LogoutOutlined />}
+        >
+          {!isCollapsed && "Logout"}
+        </Button>
       </div>
 
       <Button
-        className="bottom-10  absolute"
-        type="primary"
-        icon={<LogoutOutlined />}
-      >
-        Logout
-      </Button>
+        className={`absolute top-1/2 transform -translate-y-1/2 transition-all duration-300 ${
+          isCollapsed ? "right-[-20px]" : "right-[-40px]"
+        }`}
+        onClick={onToggle}
+        icon={isCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+        shape="circle"
+      />
     </div>
   );
 }

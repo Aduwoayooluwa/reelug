@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap");
+
+.cosmic-font {
+  font-family: "Orbitron", sans-serif;
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.star {
+  animation: twinkle 2s infinite;
+}

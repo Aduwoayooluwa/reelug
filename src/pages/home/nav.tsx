@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MenuOutlined } from "@ant-design/icons";
 import { Button, Drawer, Menu } from "antd";
 import { Link } from "react-router-dom";
@@ -7,22 +7,42 @@ const { SubMenu } = Menu;
 
 const Navigation: React.FC = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset;
+      if (scrollTop > 0) {
+        setHasScrolled(true);
+      } else {
+        setHasScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const handleMenuClick = () => {
     setIsDrawerOpen(!isDrawerOpen);
   };
 
   return (
-    <nav className="flex items-center bg-white z-30 fixed shadow px-6 md:px-28 top-0 w-full h-[97px] justify-between py-4">
+    <nav
+      className={`flex items-center bg-white z-30 fixed px-6 md:px-28 top-0 w-full h-[97px] justify-between py-4 transition-shadow duration-300 ${hasScrolled ? "shadow" : ""}`}
+    >
       {/* Logo Section */}
-      <div className="flex items-center">
+      <Link to="/" className="flex items-center">
         <div className="mr-1 w-16 h-16 relative">
           <img src={"/reelog_logo.svg"} alt="logo" />
         </div>
         <h1 className="text-3xl font-bold">
           Reelug<span className="text-primary font-bold text-2xl">.</span>
         </h1>
-      </div>
+      </Link>
 
       {/* Desktop Menu */}
       <div className="hidden text-[18px]  font-[500] md:flex items-center space-x-10">

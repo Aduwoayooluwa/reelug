@@ -9,6 +9,7 @@ import {
 } from "@ant-design/icons";
 import { Row, Col } from "antd";
 import { PrimaryButton } from "../../components/button.components";
+import { Link } from "react-router-dom";
 
 const menuItems = [
   {
@@ -66,7 +67,7 @@ export function Features() {
 
       <Row gutter={[24, 24]} className="mt-10 md:mt-20 xl:mt-40">
         {menuItems.map((menu) => (
-          <Col className='' xs={24} sm={24} md={12} lg={8} key={menu.title}>
+          <Col className="" xs={24} sm={24} md={12} lg={8} key={menu.title}>
             <div
               className={`${menu.bgColor} border hover:ring-4 hover:scale-[1.01] hover:ring-dark transition-all ease-linear duration-300 border-dark rounded-[10px] p-6  flex flex-col text-dark justify-center h-[378px]`}
             >
@@ -85,7 +86,9 @@ export function Features() {
       </Row>
 
       <div className="w-full grid place-items-center mt-20">
-        <PrimaryButton icon={<RightOutlined />}>All Features</PrimaryButton>
+        <PrimaryButton icon={<RightOutlined />}>
+          <Link to="/pricing">See Details</Link>
+        </PrimaryButton>
       </div>
     </div>
   );

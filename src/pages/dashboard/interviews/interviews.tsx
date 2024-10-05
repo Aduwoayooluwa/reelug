@@ -169,7 +169,12 @@ const Interviews: React.FC = () => {
           Schedule Interview
         </Button>
       </div>
-      <Table columns={columns} dataSource={interviews} rowKey="id" />
+      <Table
+        columns={columns}
+        loading={isLoading}
+        dataSource={interviews}
+        rowKey="id"
+      />
       <Modal
         title="Schedule Interview"
         visible={isModalVisible}

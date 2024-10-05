@@ -1,5 +1,5 @@
 import { Button, Space } from "antd";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PrimaryButton } from "../../components/button.components";
 import { LoginOutlined } from "@ant-design/icons";
 import RotatingGear from "../../components/hero-image";
@@ -36,7 +36,7 @@ const HeroSection = () => {
           </PrimaryButton>
 
           <Button className="w-[171.5px] h-[57px] mt-1 text-[18px] font-[500] text-dark border-dark hover:text-white transition-all duration-300 ease-linear hover:bg-primary">
-            Buy Now
+            <Link to="/pricing">See Details</Link>
           </Button>
         </Space>
       </div>

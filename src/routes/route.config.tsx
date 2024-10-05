@@ -14,6 +14,12 @@ import Navigation from "../pages/home/nav";
 import Mails from "../pages/dashboard/mails/mails";
 import Calendar from "../pages/dashboard/calendar/calendar";
 import Interviews from "../pages/dashboard/interviews/interviews";
+import { PricingPage } from "../pages/pricing/pricing";
+import Footer from "../pages/home/footer";
+import PrivacyPolicy from "../pages/privacy-policy/privacy-policy";
+import TermsAndConditions from "../pages/terms-conditions/terms-and-conditions";
+import Register from "../pages/auth/register";
+import NotFound from "../pages/not-found/not-found";
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +28,36 @@ export const router = createBrowserRouter([
       <div>
         <Navigation />
         <HomePage />
+      </div>
+    ),
+  },
+  {
+    path: "/pricing",
+    element: (
+      <div>
+        <Navigation />
+        <PricingPage />
+        <Footer />
+      </div>
+    ),
+  },
+  {
+    path: "/privacy-policy",
+    element: (
+      <div>
+        <Navigation />
+        <PrivacyPolicy />
+        <Footer />
+      </div>
+    ),
+  },
+  {
+    path: "/terms-of-service",
+    element: (
+      <div>
+        <Navigation />
+        <TermsAndConditions />
+        <Footer />
       </div>
     ),
   },
@@ -45,5 +81,13 @@ export const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginPage />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);

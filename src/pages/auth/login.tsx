@@ -1,38 +1,50 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
+import React from "react";
 import { Form, Input, Button, Divider, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { GoogleOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
-import { account } from "../../config/appwrite.config";
-import { OAuthProvider } from "appwrite";
 import { motion } from "framer-motion";
+import { useSignIn } from "@clerk/clerk-react";
 
 const LoginPage: React.FC = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const { isLoaded, signIn, setActive } = useSignIn();
+
+  if (!isLoaded) {
+    return null;
+  }
 
   const onFinish = async (values: { email: string; password: string }) => {
-    setLoading(true);
     try {
-      await account.createEmailPasswordSession(values.email, values.password);
-      message.success("Login successful");
-      navigate("/dashboard");
+      const result = await signIn.create({
+        identifier: values.email,
+
+        strategy: "password",
+        password: values.password,
+      });
+
+      if (result.status === "complete") {
+        await setActive({ session: result.createdSessionId });
+        message.success("Login successful");
+        navigate("/dashboard");
+      } else {
+        console.error("Login failed:", result);
+        message.error("Login failed. Please check your credentials.");
+      }
     } catch (error) {
       console.error("Login failed:", error);
       message.error("Login failed. Please check your credentials.");
-    } finally {
-      setLoading(false);
     }
   };
 
   const handleGoogleLogin = async () => {
     try {
-      await account.createOAuth2Session(
-        OAuthProvider.Google,
-        "http://localhost:3000/dashboard",
-        "http://localhost:3000/auth/login"
-      );
+      await signIn.authenticateWithRedirect({
+        strategy: "oauth_google",
+        redirectUrl: "/dashboard",
+        redirectUrlComplete: "/dashboard",
+      });
     } catch (error) {
       console.error("Google login failed:", error);
       message.error("Google login failed. Please try again.");
@@ -96,12 +108,7 @@ const LoginPage: React.FC = () => {
             </Form.Item>
 
             <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="w-full "
-                loading={loading}
-              >
+              <Button type="primary" htmlType="submit" className="w-full ">
                 Log In
               </Button>
             </Form.Item>

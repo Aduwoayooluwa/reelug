@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.4.0",
+    "@clerk/clerk-react": "^5.11.0",
     "@nylas/react": "^1.1.2",
     "@tanstack/react-query": "^5.53.1",
     "@tanstack/react-query-devtools": "^5.53.1",

@@ -11,6 +11,7 @@ import {
 import { Button } from "antd";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { useAuth } from "@clerk/clerk-react";
 
 interface SidebarProps {
   isCollapsed: boolean;
@@ -20,6 +21,7 @@ interface SidebarProps {
 export default function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
   const navigate = useNavigate();
   const location = useLocation();
+  const session = useAuth();
 
   useEffect(() => {
     if (location.pathname === "/your-mails" && !isCollapsed) {
@@ -89,6 +91,10 @@ export default function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
           className="bottom-20 absolute left-1/2 transform -translate-x-1/2"
           type="primary"
           icon={<LogoutOutlined />}
+          onClick={async () => {
+            await session.signOut();
+            navigate("/");
+          }}
         >
           {!isCollapsed && "Logout"}
         </Button>

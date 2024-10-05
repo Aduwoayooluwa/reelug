@@ -1,3 +1,4 @@
+import AuthProvider from "../pages/auth/auth-provider";
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../App";
 import LoginPage from "../pages/auth/login";
@@ -23,68 +24,78 @@ import NotFound from "../pages/not-found/not-found";
 
 export const router = createBrowserRouter([
   {
-    path: "/",
-    element: (
-      <div>
-        <Navigation />
-        <HomePage />
-      </div>
-    ),
-  },
-  {
-    path: "/pricing",
-    element: (
-      <div>
-        <Navigation />
-        <PricingPage />
-        <Footer />
-      </div>
-    ),
-  },
-  {
-    path: "/privacy-policy",
-    element: (
-      <div>
-        <Navigation />
-        <PrivacyPolicy />
-        <Footer />
-      </div>
-    ),
-  },
-  {
-    path: "/terms-of-service",
-    element: (
-      <div>
-        <Navigation />
-        <TermsAndConditions />
-        <Footer />
-      </div>
-    ),
-  },
-  {
-    path: "/",
-    element: <MainLayout />,
+    element: <AuthProvider redirectIfAuthenticated />,
     children: [
-      { path: "/add-job", element: <AddCalendarPage /> },
-      { path: "/compose-email", element: <EmailForm /> },
-      { path: "/add-contact", element: <AddContact /> },
-      { path: "/add-meeting", element: <AddMeeting /> },
-      { path: "/job-details/:id", element: <JobDetailsPage /> },
-      { path: "/email-templates", element: <EmailTemplatesPage /> },
-      { path: "/reminders", element: <RemindersPage /> },
-      { path: "/dashboard", element: <Dashboard /> },
-      { path: "/your-mails", element: <Mails /> },
-      { path: "/calendar", element: <Calendar /> },
-      { path: "/interviews", element: <Interviews /> },
+      {
+        path: "/",
+        element: (
+          <div>
+            <Navigation />
+            <HomePage />
+          </div>
+        ),
+      },
+      {
+        path: "/pricing",
+        element: (
+          <div>
+            <Navigation />
+            <PricingPage />
+            <Footer />
+          </div>
+        ),
+      },
+      {
+        path: "/privacy-policy",
+        element: (
+          <div>
+            <Navigation />
+            <PrivacyPolicy />
+            <Footer />
+          </div>
+        ),
+      },
+      {
+        path: "/terms-of-service",
+        element: (
+          <div>
+            <Navigation />
+            <TermsAndConditions />
+            <Footer />
+          </div>
+        ),
+      },
+      {
+        path: "/login",
+        element: <LoginPage />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
     ],
   },
   {
-    path: "/login",
-    element: <LoginPage />,
-  },
-  {
-    path: "/register",
-    element: <Register />,
+    element: <AuthProvider requireAuth />,
+    children: [
+      {
+        path: "/",
+        element: <MainLayout />,
+        children: [
+          { path: "/add-job", element: <AddCalendarPage /> },
+          { path: "/compose-email", element: <EmailForm /> },
+          { path: "/add-contact", element: <AddContact /> },
+          { path: "/add-meeting", element: <AddMeeting /> },
+          { path: "/job-details/:id", element: <JobDetailsPage /> },
+          { path: "/email-templates", element: <EmailTemplatesPage /> },
+          { path: "/reminders", element: <RemindersPage /> },
+          { path: "/dashboard", element: <Dashboard /> },
+          { path: "/your-mails", element: <Mails /> },
+          { path: "/calendar", element: <Calendar /> },
+          { path: "/interviews", element: <Interviews /> },
+        ],
+      },
+    ],
   },
   {
     path: "*",

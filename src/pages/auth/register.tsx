@@ -1,55 +1,60 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
+import React from "react";
 import { Form, Input, Button, Divider, message } from "antd";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   GoogleOutlined,
   LockOutlined,
   MailOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { account, ID } from "../../config/appwrite.config";
-import { OAuthProvider } from "appwrite";
+import { useSignUp } from "@clerk/clerk-react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const Register: React.FC = () => {
   const [form] = Form.useForm();
+  const { isLoaded, signUp, setActive } = useSignUp();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
 
   const onFinish = async (values: {
     email: string;
     password: string;
     username: string;
   }) => {
-    setLoading(true);
+    if (!isLoaded) {
+      return;
+    }
+
     try {
-      await account.create(
-        ID.unique(),
-        values.email,
-        values.password,
-        values.username
-      );
-      message.success("Registration successful!");
-      navigate("/dashboard");
-    } catch (error) {
-      console.error("Registration error:", error);
-      message.error("Registration failed. Please try again.");
-    } finally {
-      setLoading(false);
+      // Create the new user
+      const user = await signUp.create({
+        emailAddress: values.email,
+        password: values.password,
+        username: values.username,
+      });
+
+      if (user.status === "complete") {
+        // User successfully created, attempt to set active
+        await setActive({ session: user.createdSessionId });
+        message.success("Registration successful");
+        navigate("/dashboard");
+      } else {
+        console.log(user);
+      }
+    } catch (err: any) {
+      console.error("Error:", err.errors ? err.errors[0].message : err);
+      message.error(err.errors ? err.errors[0].message : err.toString());
     }
   };
 
-  const handleGoogleAuth = async () => {
-    try {
-      await account.createOAuth2Session(
-        OAuthProvider.Google,
-        "http://localhost:3000/dashboard",
-        "http://localhost:3000/auth/register"
-      );
-    } catch (error) {
-      console.error("Google auth error:", error);
-      message.error("Google authentication failed. Please try again.");
+  const handleGoogleAuth = () => {
+    if (isLoaded) {
+      signUp.authenticateWithRedirect({
+        strategy: "oauth_google",
+        redirectUrl: "/dashboard",
+        redirectUrlComplete: "/dashboard",
+      });
     }
   };
 
@@ -126,12 +131,7 @@ const Register: React.FC = () => {
             </Form.Item>
 
             <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="w-full"
-                loading={loading}
-              >
+              <Button type="primary" htmlType="submit" className="w-full">
                 Sign Up
               </Button>
             </Form.Item>

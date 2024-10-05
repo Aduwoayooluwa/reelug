@@ -1,0 +1,65 @@
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.loader {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.leaf1,
+.leaf2,
+.leaf3 {
+  position: absolute;
+  width: 30px;
+  height: 60px;
+  background-color: #17a24a;
+  border-radius: 100px 0;
+  transform-origin: 15px 60px;
+}
+
+.leaf1 {
+  animation: rotateLeaf1 1.5s infinite ease-in-out;
+}
+
+.leaf2 {
+  animation: rotateLeaf2 1.5s infinite ease-in-out;
+}
+
+.leaf3 {
+  animation: rotateLeaf3 1.5s infinite ease-in-out;
+}
+
+@keyframes rotateLeaf1 {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(30deg);
+  }
+}
+
+@keyframes rotateLeaf2 {
+  0%,
+  100% {
+    transform: rotate(120deg);
+  }
+  50% {
+    transform: rotate(150deg);
+  }
+}
+
+@keyframes rotateLeaf3 {
+  0%,
+  100% {
+    transform: rotate(240deg);
+  }
+  50% {
+    transform: rotate(270deg);
+  }
+}

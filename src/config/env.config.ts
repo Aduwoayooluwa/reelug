@@ -7,3 +7,7 @@ export const CALLBACK_URI = import.meta.env.VITE_APP_CALLBACK_URI;
 export const APPWRITE_URI = import.meta.env.VITE_APP_APPWRITE_BASE_URI;
 export const APPWRITE_ID = import.meta.env.VITE_APP_APPWRITE_ID;
 export const APPWRITE_API_KEY = import.meta.env.VITE_APP_APPWRITE_API_KEY;
+export const DATABASE_ID = import.meta.env.VITE_APP_APPWRITE_DATABASE_ID;
+export const USER_COLLECTION_ID = import.meta.env
+  .VITE_APP_APPWRITE_USERS_COLLECTION_ID;
+export const CLERK_PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
